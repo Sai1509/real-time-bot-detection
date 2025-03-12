@@ -1,0 +1,33 @@
+Objective:
+
+The primary aim of this project was to identify automated bots in web logs to proactively mitigate fraud, abuse, or credential-stuffing attacks. Bots are automated programs that mimic human interactions and frequently engage in harmful activities that threaten user security.
+
+Why This Matters:
+
+Maintaining trust and safety necessitates the swift detection of abnormal behaviors (such as excessively rapid or repetitive actions) before they inflict damage on users and systems.
+
+Data and Methodology:
+
+Step 1: Data Preparation and Exploration
+	Dataset Utilised: Web server logs comprising:
+		Timestamp, IP Address, Requested URLs, User-Agent, HTTP Status Codes, Session IDs.
+	The initial exploration focused on recognising patterns within the data, such as request frequency, the uniqueness of IP addresses, and standard session behaviors.
+
+Insights Gained:
+
+It was determined that certain sessions exhibited abnormally high request rates or brief intervals between requests. Additionally, it was noted that specific User-Agent strings were evidently non-human, as bots often display predictable patterns.
+
+Step 2: Feature Engineering (Critical for ML)
+To distinguish bot activity from human activity, I engineered two types of features:
+
+A. User-Agent Based NLP Features:
+
+	Applied TF-IDF vectorization to convert User-Agent strings into numerical vectors capturing patterns.
+	Used the DBSCAN clustering algorithm to group similar user agents. DBSCAN was chosen due to its effectiveness in finding anomalies 	without requiring predefined cluster numbers.
+
+B. Session-based Behavioral Features:
+
+	Calculated session-level statistics:
+		Total requests per session (request_count)
+		Session duration in seconds (session_duration_sec)
+		Count of unique IP addresses (unique_ips)
